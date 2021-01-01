@@ -1,14 +1,23 @@
 import React from "react";
-import { View, Button, Text, StyleSheet } from "react-native";
+import { View,ImageBackground, Button, Text, StyleSheet } from "react-native";
+import Firebase from '../../config/Firebase';
 
 const Start = props => {
   const {navigation} = props;
+
+handlelogout =()=>{
+  Firebase.auth()   
+  .signOut()
+  .then(() => navigation.navigate("Home"));
+
+}
   return (
     <View style={styles.center}>
+
       <Text>This is the home screen</Text>
       <Button
         title="Go to About Screen"
-        onPress={() => navigation.navigate("About")}
+        onPress={handlelogout}
       />
     </View>
   );

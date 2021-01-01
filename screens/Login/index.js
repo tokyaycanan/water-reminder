@@ -1,6 +1,8 @@
 import React, { useState }  from 'react';
-import {View, Text, StyleSheet,TextInput, ImageBackground,TouchableOpacity} from 'react-native';
+import {View, Text ,StyleSheet,TextInput, ImageBackground,TouchableOpacity} from 'react-native';
 import Firebase from '../../config/Firebase';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 
 //disable yellow warnings on EXPO client!
@@ -23,11 +25,34 @@ const Login = props => {
         .catch(error => alert(error))
 
 }
+
+
+const saveValueFunction = () => {
+  //function to save the value in AsyncStorage
+  if (email) {
+    //To check the input not empty
+    AsyncStorage.setItem('any_key_here', email);
+    //Setting a data to a AsyncStorage with respect to a key
+    setemail('');
+    //alert to confirm
+  } 
+
+  if (password) {
+    //To check the input not empty
+    AsyncStorage.setItem('any_key_here2', password);
+    //Setting a data to a AsyncStorage with respect to a key
+    setpassword('');
+    //Resetting the TextInput
+    //alert to confirm
+  }
+  handleLogin();
+};
+
 return (
 
   <View style={styles.container}>
-  <ImageBackground style={{flex: 1, opacity: 0.9,}} source={{uri: 'https://cdn.pixabay.com/photo/2016/03/01/08/06/harmony-1229886_960_720.jpg'}}>
-  <Text style={styles.logo}>CHAPP</Text>
+  <ImageBackground style={{flex: 1, opacity: 0.9,}} source={{uri: 'https://cdn.pixabay.com/photo/2018/02/06/14/07/dance-3134828_960_720.jpg'}}>
+  <Text style={styles.logo}>WATER REMİNDER</Text>
   <View style={styles.inputView} >
     <TextInput  
       style={styles.inputText}
@@ -48,7 +73,7 @@ return (
     <Text style={styles.forgot}>Forgot Password?</Text>
   </TouchableOpacity>
   <TouchableOpacity style={styles.loginBtn} 
-      onPress={handleLogin}>
+      onPress={()=>saveValueFunction()}>
     <Text style={styles.loginText}>LOGIN</Text>
   </TouchableOpacity>
   <TouchableOpacity onPress={() => navigation.navigate('Kayit')}>

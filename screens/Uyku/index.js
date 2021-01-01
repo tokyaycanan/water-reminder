@@ -2,6 +2,7 @@ import React from "react";
 import { View, StyleSheet, Text } from "react-native";
 
 
+
 //disable yellow warnings on EXPO client!
 console.disableYellowBox = true;
 

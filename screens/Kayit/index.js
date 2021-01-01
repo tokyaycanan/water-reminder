@@ -30,7 +30,16 @@ const Kayit = props => {
      })
      Firebase.auth()
         .createUserWithEmailAndPassword(email, password)
-        .then(() => {console.log('User account created & signed in!'); })    
+        .then(() => navigation.navigate('deneme', {
+          screen: 'SuMiktar',
+        params: {
+          screen: 'SuMiktar',
+          params: {
+            caption:email,
+          },
+        },
+      }
+       ))  
         .catch(error => alert(error))
 }
 
@@ -39,7 +48,7 @@ const Kayit = props => {
 
   return (
 
-    <ImageBackground style={{flex: 1, opacity: 0.9,}} source={{uri: 'https://cdn.pixabay.com/photo/2019/05/28/10/05/rock-4234793_960_720.jpg'}}>
+    <ImageBackground style={{flex: 1, opacity: 0.9,}} source={{uri: 'https://cdn.pixabay.com/photo/2016/10/22/15/32/water-1761027_960_720.jpg'}}>
 <View style={styles.container}>
 
     <Text style={styles.logo}>Bazı bilgilere ihtiyacımız var..:)</Text>
@@ -126,6 +135,7 @@ const styles = StyleSheet.create({
       borderBottomColor:"#26659c",
       borderBottomWidth:3,
       paddingBottom:"5%",
+      marginTop:"30%"
     
     },
   
