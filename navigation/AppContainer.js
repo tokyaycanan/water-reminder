@@ -9,6 +9,7 @@ import Kayit from '../screens/Kayit';
 import Login from '../screens/Login';
 import SuMiktar from "../screens/SuMiktar"
 import deneme from '../screens/Deneme';
+import ForgotPassword from '../screens/ForgotPassword';
 
 
 
@@ -27,6 +28,8 @@ const AppNavigationContainer  = () => {
       <Stack.Screen name="Start" component={Start} />
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="deneme" component={deneme} />
+      <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
+
 
 
     </Stack.Navigator>

@@ -2,14 +2,24 @@ import React, {useEffect,useState} from 'react';
 import { View, ImageBackground,Button, Text, StyleSheet } from "react-native";
 import AsyncStorage from '@react-native-community/async-storage';
 import Firebase from '../../config/Firebase';
-
+import * as Notifications from 'expo-notifications';
 
 const Home = props => {
   const {navigation} = props;
 
   const [email, setemail] = useState('x@x.com');
   const [password, setpassword] = useState('......');
+  
 
+  Notifications.scheduleNotificationAsync({
+    content: {
+      title: 'Remember to drink water!,',
+    },
+    trigger: {
+      seconds: 60 * 20,
+      repeats: true
+    },
+  });
 
   useEffect(() => {
 
@@ -45,8 +55,8 @@ const Home = props => {
   });
 
   return (
-    <View style={styles.center}>
     <ImageBackground style={{flex: 1, opacity: 0.87,}} source={{uri: 'https://cdn.pixabay.com/photo/2017/02/09/15/10/sea-2052650_960_720.jpg'}}>
+    <View style={styles.center}>
       <Text style={styles.logo}>HOŞGELDİN...</Text>
       <View style={styles.buttonContainer}>
       <View style={styles.devam}>
@@ -55,9 +65,8 @@ const Home = props => {
         style={styles.textButton}>Devam etmek için tıklayınız</Text>
     </View>
     </View>
-      </ImageBackground>
-
     </View>
+    </ImageBackground>
   );
 };
 
@@ -69,10 +78,10 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   logo:{
-    marginTop: "5%",
+    marginTop: "20%",
     fontWeight:"bold",
-    fontSize:80,
-    color:"#fb5b5a",
+    fontSize:60,
+    color:"#003399",
     marginBottom:"30%",
     textAlign: "center",
   },

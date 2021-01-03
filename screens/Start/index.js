@@ -1,15 +1,18 @@
 import React from "react";
 import { View,ImageBackground, Button, Text, StyleSheet } from "react-native";
 import Firebase from '../../config/Firebase';
+import AsyncStorage from '@react-native-community/async-storage';
 
 const Start = props => {
   const {navigation} = props;
 
-handlelogout =()=>{
-  Firebase.auth()   
-  .signOut()
-  .then(() => navigation.navigate("Home"));
-
+handlelogout = async()=>{
+  try{
+        await Firebase.auth().signOut()
+       .then(() => navigation.navigate("Login"));
+  }catch( error ){
+        console.error(error);
+  }
 }
   return (
     <View style={styles.center}>

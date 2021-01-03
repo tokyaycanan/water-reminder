@@ -1,21 +1,97 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import { View, StyleSheet,Image,ImageBackground, Text,TouchableOpacity} from "react-native";
-
+import * as Notifications from 'expo-notifications';
 import Firebase from "../../config/Firebase";
 import moment from "moment";
+import { render } from "react-dom";
+
 
 
 
 //disable yellow warnings on EXPO client!
 console.disableYellowBox = true;
 
-
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: false,
+    shouldSetBadge: false,
+  }),
+});
 const SuMiktar = props => {
   const {navigation} = props;
   var date=moment().format('LL');
   var user = Firebase.auth().currentUser.email;
 
   const [count, setCount] = useState(0);
+
+
+  const [expoPushToken, setExpoPushToken] = useState('');
+  const [notification, setNotification] = useState(false);
+  const notificationListener = useRef();
+  const responseListener = useRef();
+
+  useEffect(() => {
+    registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
+
+    notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
+      setNotification(notification);
+    });
+
+    responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
+      console.log(response);
+    });
+
+    return () => {
+      Notifications.removeNotificationSubscription(notificationListener);
+      Notifications.removeNotificationSubscription(responseListener);
+    };
+  }, []);
+
+ 
+  async function schedulePushNotification() {
+    await  Notifications.scheduleNotificationAsync({
+      content: {
+        title: 'Remember to drink water!,',
+      },
+      trigger: {
+        seconds: 60 * 3,
+        repeats: true
+      },
+    });
+ 
+  }
+ 
+  async function registerForPushNotificationsAsync() {
+    let token;
+    if (Constants.isDevice) {
+      const { status: existingStatus } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
+      let finalStatus = existingStatus;
+      if (existingStatus !== 'granted') {
+        const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+        finalStatus = status;
+      }
+      if (finalStatus !== 'granted') {
+        alert('Failed to get push token for push notification!');
+        return;
+      }
+      token = (await Notifications.getExpoPushTokenAsync()).data;
+      console.log(token);
+    } else {
+      alert('Must use physical device for Push Notifications');
+    }
+  
+    if (Platform.OS === 'android') {
+      Notifications.setNotificationChannelAsync('default', {
+        name: 'default',
+        importance: Notifications.AndroidImportance.MAX,
+        vibrationPattern: [0, 250, 250, 250],
+        lightColor: '#FF231F7C',
+      });
+    }
+  
+    return token;
+  }
 
   function  _kontrol(n) {
     if (count==n){
@@ -33,7 +109,7 @@ const SuMiktar = props => {
       return false;
     }
   }
-
+ 
 
 const[su,setsu]=useState(250)
 
@@ -47,8 +123,13 @@ const[su,setsu]=useState(250)
 
    }
    
-
+   async () => 
+    await schedulePushNotification();
+   
+   
   return (
+   
+  
     <View style={styles.center}>
        <ImageBackground style={{ flex:1,}} source={{uri: 'https://cdn.pixabay.com/photo/2014/11/25/16/32/drop-of-water-545377_960_720.jpg'}}>
 
@@ -241,7 +322,9 @@ const[su,setsu]=useState(250)
         </View>
        </ImageBackground>
     </View>
+    
   );
+                 
 };
 
 const styles = StyleSheet.create({

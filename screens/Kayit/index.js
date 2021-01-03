@@ -96,9 +96,7 @@ const Kayit = props => {
     <TouchableOpacity style={styles.devamBtn} onPress={handleSignUp}>
       <Text style={styles.devamText}>KAYDET</Text>
     </TouchableOpacity>
-    <TouchableOpacity style={styles.devamBtn} onPress={() => navigation.navigate('Login')}>
-      <Text style={styles.devamText}>LOGİN</Text>
-    </TouchableOpacity>
+
   
     </View>
     </ImageBackground>
