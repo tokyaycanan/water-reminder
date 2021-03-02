@@ -4,7 +4,7 @@ import {NavigationContainer} from '@react-navigation/native';
 
 
 import Home from "../screens/Home";
-import Start from "../screens/Start";
+import Logout from "../screens/Logout";
 import Kayit from '../screens/Kayit';
 import Login from '../screens/Login';
 import SuMiktar from "../screens/SuMiktar"
@@ -25,7 +25,7 @@ const AppNavigationContainer  = () => {
       
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="Kayit" component={Kayit} />
-      <Stack.Screen name="Start" component={Start} />
+      <Stack.Screen name="Logout" component={Logout} />
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="deneme" component={deneme} />
       <Stack.Screen name="ForgotPassword" component={ForgotPassword} />

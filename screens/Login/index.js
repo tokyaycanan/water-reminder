@@ -63,6 +63,7 @@ return (
   </View>
   <View style={styles.inputView} >
     <TextInput  
+     secureTextEntry={true}
       style={styles.inputText}
       placeholder="Password..." 
       placeholderTextColor="#003f5c"

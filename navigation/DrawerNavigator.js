@@ -5,7 +5,7 @@ import TabNavigator from './TabNavigator';
 
 import { AntDesign } from '@expo/vector-icons'; 
 import { Entypo } from '@expo/vector-icons';
-import Start from "../screens/Start"
+import Logout from "../screens/Logout"
 const Drawer = createDrawerNavigator();
 
 
@@ -20,8 +20,8 @@ export default function DrawerNavigator() {
 
           ),
         }}/>
-        <Drawer.Screen name="Start" component={Start} options={{
-          drawerLabel: 'Start',
+        <Drawer.Screen name="Logout" component={Logout} options={{
+          drawerLabel: 'Logout',
           drawerIcon: ({ color, size }) => (
             <AntDesign name="team" size={24} color="#517fa4" />
           ),

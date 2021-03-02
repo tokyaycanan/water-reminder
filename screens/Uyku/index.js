@@ -14,19 +14,9 @@ const Uyku = props => {
   var date=moment().format('LL');
   var user = Firebase.auth().currentUser.email;
   const[uyku,setuyku]=useState(0)
-  const[baslangic,setbaslangic]=useState('')
-  const[bitis,setbitis]=useState('')
 
-function _kontrol(basla){
-  if(basla<12)
-  {
-    return basla;
-  }
-  else{
-  var yeni=24-basla;
-  return yeni;
-  }
-}
+
+
 const [tarih, setDate] = useState(new Date(date));
 const [tarih1, setDate1] = useState(new Date(date));
 const [mode, setMode] = useState('time');

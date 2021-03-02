@@ -3,7 +3,6 @@ import { View, StyleSheet,Image,ImageBackground, Text,TouchableOpacity} from "re
 import * as Notifications from 'expo-notifications';
 import Firebase from "../../config/Firebase";
 import moment from "moment";
-import { render } from "react-dom";
 
 
 
@@ -23,7 +22,6 @@ const SuMiktar = props => {
   var date=moment().format('LL');
   var user = Firebase.auth().currentUser.email;
 
-  const [count, setCount] = useState(0);
 
 
   const [expoPushToken, setExpoPushToken] = useState('');
@@ -55,7 +53,7 @@ const SuMiktar = props => {
         title: 'Remember to drink water!,',
       },
       trigger: {
-        seconds: 60 * 3,
+        seconds: 60 * 60,
         repeats: true
       },
     });
@@ -92,6 +90,7 @@ const SuMiktar = props => {
   
     return token;
   }
+  const [count, setCount] = useState(0);
 
   function  _kontrol(n) {
     if (count==n){
